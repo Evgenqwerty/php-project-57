@@ -14,7 +14,7 @@ class TaskStatusController extends Controller
     {
         $taskStatuses = TaskStatus::paginate();
 
-        return view('task_status.index',  compact('task_statuses'));
+        return view('task_statuses.index',  compact('taskStatuses'));
     }
 
     /**
@@ -23,7 +23,7 @@ class TaskStatusController extends Controller
     public function create()
     {
         $taskStatus = new TaskStatus();
-        return view('task_statuses.create', compact('task_statuses'));
+        return view('task_statuses.create', compact('taskStatus'));
     }
 
     /**
@@ -32,14 +32,14 @@ class TaskStatusController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|unique:task_statuses';
+            'name' => 'required|unique:task_statuses',
         ]);
 
         $taskStatus = new TaskStatus();
         $taskStatus->fill($data);
         $taskStatus->save();
 
-        return redirect()->route('task_statuses');
+        return redirect()->route('task_statuses.index');
     }
 
     /**
@@ -53,23 +53,30 @@ class TaskStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TaskStatus $taskStatus)
+    public function edit($id)
     {
-        //
+        $taskStatus = TaskStatus::findOrFail($id);
+        return view('task_statuses.edit', compact('taskStatus'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TaskStatus $taskStatus)
+    public function update(Request $request, $id)
     {
-        //
+        $taskStatus = TaskStatus::findOrFail($id);
+        $data = $request->validate([
+            'name' => "required|unique:task_statuses,name{$taskStatus->id}",
+        ]);
+        $taskStatus->fill($data);
+        $taskStatus->save();
+        return redirect()->route('task_statuses.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TaskStatus $taskStatus)
+    public function destroy($id)
     {
         //
     }
