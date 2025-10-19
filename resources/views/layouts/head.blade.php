@@ -8,7 +8,7 @@
     <title>Менеджер задач</title>
 
     <!-- Scripts -->
-    <link rel="preload" as="style" href="https://php-project-57-ru.hexlet.app/build/assets/app.4885a691.css" /><link rel="modulepreload" href="https://php-project-57-ru.hexlet.app/build/assets/app.42df0f0d.js" /><link rel="stylesheet" href="https://php-project-57-ru.hexlet.app/build/assets/app.4885a691.css" /><script type="module" src="https://php-project-57-ru.hexlet.app/build/assets/app.42df0f0d.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

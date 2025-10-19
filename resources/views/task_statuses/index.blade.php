@@ -38,8 +38,9 @@
                                     <a data-confirm="Вы уверены?"
                                        data-method="delete"
                                        class="text-red-600 hover:text-red-900"
-                                       href="task_statuses/{{ $status->id }}"
-                                    >Удалить</a>
+                                       href="{{route('task_statuses.destroy', ['task_status'=>$status->id])}}"
+                                       rel="nofollow">
+                                        Удалить                        </a>
                                     <a class="text-blue-600 hover:text-blue-900" href="task_statuses/{{ $status->id }}/edit">
                                         Изменить</a>
                                 </td>
