@@ -12,7 +12,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::paginate();
+        return view('task.index', compact('tasks'));
     }
 
     /**
@@ -20,7 +21,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $task = new Task();
+        return view('tasks.create', compact('task'));
     }
 
     /**
@@ -28,7 +30,11 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|unique:tasks',
+            'description' => 'required|min:1000',
+            'status' =>
+        ]);
     }
 
     /**
