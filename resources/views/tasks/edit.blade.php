@@ -2,8 +2,8 @@
 @section('content')
     <div class="grid col-span-full">
         <h1 class="mb-5">Изменение задачи</h1>
-        <form class="w-50" method="PATH" action="{{ route('tasks.index') }}"><input type="hidden" name="_token" value="{{ csrf_token() }}">
-            @csrf
+        <form class="w-50" method="POST" action="{{ route('tasks.update', $task) }}">
+            @csrf @method('PUT')
             <div class="flex flex-col">
                 <div>
                     <label for="name">Имя</label>
@@ -44,7 +44,6 @@
                 </select>
             </div>
             <div class="mt-2">
-                <input type="hidden" name="_method" id="_method" value="POST">
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="text-rose-600">{{ $error }}</div>

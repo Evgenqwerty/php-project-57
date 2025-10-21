@@ -37,12 +37,14 @@
                     <td>{{ $task->created_at->format('Y-m-d') }}</td>
                     @auth
                         <td>
-                            <a data-confirm="Вы уверены?"
-                               data-method="delete"
-                               class="text-red-600 hover:text-red-900"
-                               href="{{ route('tasks.destroy', ['task'=>$task->id]) }}"
-                               rel="nofollow">
-                                Удалить                        </a>
+                            @if (Auth::user()->id === $task->creator_by_id)
+                                <a data-confirm="Вы уверены?"
+                                   data-method="delete"
+                                   class="text-red-600 hover:text-red-900"
+                                   href="{{ route('tasks.destroy', ['task'=>$task->id]) }}"
+                                   rel="nofollow">
+                                    Удалить                        </a>
+                            @endif
                             <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', ['task'=>$task->id])}}">
                                 Изменить                        </a>
                         </td>

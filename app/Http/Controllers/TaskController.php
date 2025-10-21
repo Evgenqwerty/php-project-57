@@ -39,10 +39,10 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|unique:tasks',
-            'description' => 'max:1000',
-            'status_id' => 'required|string',
-            'assigned_by_id' => 'nullable|string'
+            'name' => "required|unique:tasks",
+            'description' => "max:1000",
+            'status_id' => "required|string",
+            'assigned_by_id' => "nullable|string"
 
         ]);
         $task = new Task();
@@ -50,7 +50,7 @@ class TaskController extends Controller
         $task->creator_by_id = Auth::user()->id;
         $task->save();
 
-        flash('Задача успешно создана');
+        flash('Задача успешно создана')->success();
 
         return redirect()->route('tasks.index');
     }
@@ -82,23 +82,30 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $data = $request->validate([
-            'name' => 'required|unique:tasks,name,{$task->id}',
-            'description' => 'max:1000',
-            'status_id' => 'required|string',
-            'assigned_by_id' => 'nullable|string'
+            'name' => "required|unique:tasks,name,{$task->id}",
+            'description' => "max:1000",
+            'status_id' => "required|string",
+            'assigned_by_id' => "nullable|string"
 
         ]);
         $task->fill($data);
         $task->save();
-        flash(__('Task successfully changed'));
+        flash(__('Task successfully changed'))->success();;
         return redirect()->route('tasks.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        //
+        if (Auth::user()->id === $task->creator_by_id) {
+            $task->delete();
+            flash('Задача успешно удалена')->success();
+        } else {
+            flash('Не удалось удалить задачу')->error();
+        }
+
+        return redirect()->route('tasks.index');
     }
 }

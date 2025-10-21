@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('task_statuses');
             $table->bigInteger('creator_by_id');
-            $table->foreign('creator_by_id')->references('id')->on('users');
+            $table->foreign('creator_by_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('assigned_by_id')->nullable();
             $table->foreign('assigned_by_id')->references('id')->on('users');
             $table->timestamps();

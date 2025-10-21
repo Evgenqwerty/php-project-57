@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TaskStatus;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class TaskStatusController extends Controller
 {
@@ -67,6 +68,7 @@ class TaskStatusController extends Controller
     public function update(Request $request, $id)
     {
         $taskStatus = TaskStatus::findOrFail($id);
+        var_dump($taskStatus);
         $data = $request->validate([
             'name' => "required|unique:task_statuses,name,{$taskStatus->id}",
         ]);
@@ -81,15 +83,13 @@ class TaskStatusController extends Controller
      */
     public function destroy($id)
     {
-        $assignedUser = Task::where('assigned_by_id', $id)->get();
-        if ($assignedUser->all()) {
-            flash('Не удалось удалить статус')->error();
-        } else {
+        try {
             $taskStatus = TaskStatus::find($id);
             $taskStatus->delete();
-            flash('Статус успешно удален');
+            flash('Статус успешно удален')->success();
+        } catch (QueryException $qe) {
+            flash('Не удалось удалить статус')->error();
         }
-
         return redirect()->route('task_statuses.index');
     }
 }

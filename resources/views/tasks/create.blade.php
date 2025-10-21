@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid col-span-full">
         <h1 class="mb-5">Создать задачу</h1>
-        <form class="w-50" method="POST" action="{{ route('tasks.index') }}"><input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <form class="w-50" method="POST" action="{{ route('tasks.store') }}">
             @csrf
             <div class="flex flex-col">
                 <div>
