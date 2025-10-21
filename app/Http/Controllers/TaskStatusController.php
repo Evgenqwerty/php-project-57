@@ -68,7 +68,7 @@ class TaskStatusController extends Controller
     {
         $taskStatus = TaskStatus::findOrFail($id);
         $data = $request->validate([
-            'name' => "required|unique:task_statuses,name{$taskStatus->id}",
+            'name' => "required|unique:task_statuses,name,{$taskStatus->id}",
         ]);
         $taskStatus->fill($data);
         $taskStatus->save();
@@ -81,16 +81,14 @@ class TaskStatusController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::where('assigned_by_id', $id);
-        if ($task) {
-            flash('Не удалось удалить статус');
-            return redirect()->route('task_statuses.index');
-        }
-        $taskStatus = TaskStatus::find($id);
-        if ($taskStatus) {
+        $assignedUser = Task::where('assigned_by_id', $id)->get();
+        if ($assignedUser->all()) {
+            flash('Не удалось удалить статус')->error();
+        } else {
+            $taskStatus = TaskStatus::find($id);
             $taskStatus->delete();
+            flash('Статус успешно удален');
         }
-        flash('Статус успешно удален');
 
         return redirect()->route('task_statuses.index');
     }

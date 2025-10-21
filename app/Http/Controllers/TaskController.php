@@ -45,7 +45,6 @@ class TaskController extends Controller
             'assigned_by_id' => 'nullable|string'
 
         ]);
-        var_dump($data);
         $task = new Task();
         $task->fill($data);
         $task->creator_by_id = Auth::user()->id;
@@ -67,17 +66,32 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit($id)
     {
-        //
+        $task = Task::findOrFail($id);
+        $taskStatuses = new TaskStatus();
+        $users = new User();
+
+        return view('tasks.edit', compact('task', 'taskStatuses', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
-        //
+        $task = Task::findOrFail($id);
+        $data = $request->validate([
+            'name' => 'required|unique:tasks,name,{$task->id}',
+            'description' => 'max:1000',
+            'status_id' => 'required|string',
+            'assigned_by_id' => 'nullable|string'
+
+        ]);
+        $task->fill($data);
+        $task->save();
+        flash(__('Task successfully changed'));
+        return redirect()->route('tasks.index');
     }
 
     /**

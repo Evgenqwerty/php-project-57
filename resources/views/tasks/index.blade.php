@@ -2,10 +2,7 @@
 @section('content')
 
     <div class="grid col-span-full">
-        <div class="alert alert-success"
-             role="alert">
-            @include('flash::message')
-        </div>
+        @include('flash::message')
         <h1 class="mb-5">Задачи</h1>
         <div>
             @auth
