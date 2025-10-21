@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba0e8016e3cb76ca3b83681485be7636",
+    "content-hash": "d12e8a51302345af720bb23279132a91",
     "packages": [
         {
             "name": "brick/math",
@@ -2008,6 +2008,50 @@
                 }
             ],
             "time": "2024-12-08T08:18:47+00:00"
+        },
+        {
+            "name": "mammo32_laravel/lang",
+            "version": "7.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mammo32/lang.git",
+                "reference": "c1519eb78139869ab8829912adde5f58ca09552f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mammo32/lang/zipball/c1519eb78139869ab8829912adde5f58ca09552f",
+                "reference": "c1519eb78139869ab8829912adde5f58ca09552f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*"
+            },
+            "suggest": {
+                "andrey-helldar/laravel-lang-publisher": "Easy installation and update of translation files for your project",
+                "arcanedev/laravel-lang": "Translations manager and checker for Laravel 5",
+                "overtrue/laravel-lang": "Command to add languages in your project"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laravel-Lang Team"
+                }
+            ],
+            "description": "Languages for Laravel",
+            "keywords": [
+                "lang",
+                "languages",
+                "laravel",
+                "lpm"
+            ],
+            "support": {
+                "source": "https://github.com/Mammo32/lang/tree/7.0.8"
+            },
+            "time": "2020-10-11T08:55:55+00:00"
         },
         {
             "name": "monolog/monolog",

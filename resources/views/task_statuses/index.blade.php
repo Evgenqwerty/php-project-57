@@ -8,6 +8,8 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
             <div class="grid col-span-full">
+                @include('layouts.flash')
+
                 <h1 class="mb-5">Статусы</h1>
 
                 <div>
@@ -41,7 +43,7 @@
                                        href="{{route('task_statuses.destroy', ['task_status'=>$status->id])}}"
                                        rel="nofollow">
                                         Удалить                        </a>
-                                    <a class="text-blue-600 hover:text-blue-900" href="task_statuses/{{ $status->id }}/edit">
+                                    <a class="text-blue-600 hover:text-blue-900" href="{{route('task_statuses.edit', ['task_status'=>$status->id])}}">
                                         Изменить</a>
                                 </td>
                             @endauth

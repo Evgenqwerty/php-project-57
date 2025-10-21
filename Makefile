@@ -11,3 +11,9 @@ start:
 
 lint:
 	composer exec --verbose phpcs -- --standard=PSR12 app
+
+migrate:
+	php artisan migrate
+
+console:
+	php artisan tinker
