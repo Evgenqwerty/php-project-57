@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->timestamps();
             $table->text('description')->nullable();
-            $table->text('status_id')->references('id')->on('task_statuses');
+            $table->bigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('task_statuses');
+            $table->bigInteger('creator_by_id');
             $table->foreign('creator_by_id')->references('id')->on('users');
-            $table->foreign('assigned_by_id')->references('id')->on('users')->nullable();
+            $table->bigInteger('assigned_by_id')->nullable();
+            $table->foreign('assigned_by_id')->references('id')->on('users');
+            $table->timestamps();
         });
     }
 

@@ -46,8 +46,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function posts()
+    public function tasks()
     {
-        return $this->hasMany('App\Models\Task', 'creator_by_id');
+        return $this->hasMany('App\Models\Task', 'creator_by_id', 'assigned_by_id');
     }
 }
