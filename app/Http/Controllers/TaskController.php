@@ -15,15 +15,32 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::paginate();
-        $tasks = QueryBuilder::for(Task::class)
-            ->allowedFields(['status_id', 'creator_by_id', 'assigned_by_id'])
-            ->get();
+        $data = $request->validate([
+            'filter' => "nullable|array"
+        ]);
+        $filter = [
+            'status_id' => null,
+            'creator_by_id' => null,
+            'assigned_by_id' => null
+        ];
+
+        $filterTasks = QueryBuilder::for(Task::class);
+
+        if (!empty($data['filter'])) {
+            $filter = $data['filter'];
+            foreach ($data['filter'] as $key => $value) {
+                if (!is_null($value)) {
+                    $filterTasks = $filterTasks->where($key, $value);
+                }
+            }
+        }
+
+        $tasks = $filterTasks->paginate();
         $taskStatuses = new TaskStatus();
         $users = new User();
-        return view('tasks.index', compact('tasks', 'taskStatuses', 'users'));
+        return view('tasks.index', compact('tasks', 'taskStatuses', 'users', 'filter'));
     }
 
     /**
