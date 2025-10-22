@@ -32,8 +32,7 @@
                         @foreach ($taskStatuses->all() as $status)
                             <option value="{{ $status->id }}" {{ $status->id == old('status_id') ? 'selected' : '' }}>{{ $status->name }}</option>
                             @endforeach
-                            </option>
-                    </select>
+                   </select>
                 </div>
 
             @error('status_id')
@@ -48,12 +47,21 @@
                     @foreach ($users->all() as $user)
                         <option value="{{ $user->id }}" {{ $user->id == old('assigned_by_id') ? 'selected' : '' }}>{{ $user->name }}</option>
                         @endforeach
-                        </option>
                 </select>
             </div>
                 @error('assigned_by_id')
                     <div class="text-rose-600">{{ $message }}</div>
                 @enderror
+            </div>
+            <div class="mt-2">
+                <label for="status_id">Метки</label>
+            </div>
+            <div>
+                <select class="rounded border-gray-300 w-1/3 h-32" name="labels[]" id="labels[]" multiple>
+                    @foreach ($labels->all() as $label)
+                        <option value="{{ $label->id }}">{{ $label->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mt-2">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Создать</button>

@@ -33,10 +33,10 @@
                                     <a data-confirm="Вы уверены?"
                                        data-method="delete"
                                        class="text-red-600 hover:text-red-900"
-                                       href="{{ route('task_statuses.destroy', $status->id] }}"
+                                       href="{{ route('task_statuses.destroy', $status->id) }}"
                                        rel="nofollow">
                                         Удалить                        </a>
-                                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('task_statuses.edit', $status->id] }}">
+                                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('task_statuses.edit', $status->id) }}">
                                         Изменить</a>
                                 </td>
                             @endauth

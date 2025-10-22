@@ -48,7 +48,7 @@ class LabelController extends Controller
      */
     public function show(Label $label)
     {
-        return view('labels.edit', compact('label'));
+       //
     }
 
     /**
@@ -56,7 +56,7 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        //
+        return view('labels.edit', compact('label'));
     }
 
     /**
@@ -65,8 +65,8 @@ class LabelController extends Controller
     public function update(Request $request, Label $label)
     {
         $data = $request->validate([
-            'name' => "required|unique:labels,name,{$labels->id}",
-            'description' => "max:1000'"
+            'name' => "required|unique:labels,name,{$label->id}",
+            'description' => "max:1000"
         ]);
         $label->fill($data);
         $label->save();

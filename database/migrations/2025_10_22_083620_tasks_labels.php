@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks_labels', function (Blueprint $table) {
+        Schema::create('label_task', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_id');
+            $table->unsignedBigInteger('task_id')->nullable();
             $table->unsignedBigInteger('label_id');
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->foreign('label_id')->references('id')->on('labels');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks_labels');
+        Schema::dropIfExists('label_task');
     }
 };

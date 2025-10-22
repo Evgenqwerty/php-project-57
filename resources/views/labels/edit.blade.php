@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid col-span-full">
         <h1 class="mb-5">Изменение метки</h1>
-        <form class="w-50" method="POST" action="{{ route('labels.update', $labels) }}">
+        <form class="w-50" method="POST" action="{{ route('label.update', $labels) }}">
             @csrf @method('PUT')
             <div class="flex flex-col">
                 <div>
@@ -14,6 +14,9 @@
                 @error('name')
                 <div class="text-rose-600">{{ $message }}</div>
                 @enderror
+                <div>
+                    <label for="description">Описание</label>
+                </div>
                 <div>
                     <textarea class="rounded border-gray-300 w-1/3 h-32" name="description" id="description">{{ $label->description }}</textarea>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
@@ -29,8 +30,9 @@ class TaskController extends Controller
         $task = new Task();
         $taskStatuses = new TaskStatus();
         $users = new User();
+        $labels = new Label();
 
-        return view('tasks.create', compact('task', 'taskStatuses', 'users'));
+        return view('tasks.create', compact('task', 'taskStatuses', 'users', 'labels'));
     }
 
     /**
@@ -42,12 +44,18 @@ class TaskController extends Controller
             'name' => "required|unique:tasks",
             'description' => "max:1000",
             'status_id' => "required|string",
-            'assigned_by_id' => "nullable|string"
+            'assigned_by_id' => "nullable|string",
+            'labels' => "array"
 
         ]);
         $task = new Task();
+        if (array_key_exists('labels', $data)) {
+            $label = Label::findOrFail($data['labels']);
+            $task->labels()->attach($label);
+        }
         $task->fill($data);
         $task->creator_by_id = Auth::user()->id;
+
         $task->save();
 
         flash('Задача успешно создана')->success();
@@ -73,8 +81,9 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $taskStatuses = new TaskStatus();
         $users = new User();
+        $labels = new Label();
 
-        return view('tasks.edit', compact('task', 'taskStatuses', 'users'));
+        return view('tasks.edit', compact('task', 'taskStatuses', 'users', 'labels'));
     }
 
     /**
