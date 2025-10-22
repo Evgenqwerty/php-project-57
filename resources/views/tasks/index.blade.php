@@ -4,13 +4,34 @@
     <div class="grid col-span-full">
         @include('flash::message')
         <h1 class="mb-5">Задачи</h1>
-        <div>
-            @auth
-                <a href="{{ route('tasks.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Создать задачу
-                </a>
-            @endauth
+            <div>
+                @auth
+                    <a href="{{ route('tasks.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Создать задачу
+                    </a>
+                @endauth
+            </div>
+
+        <div class="w-full flex items-center">
+            <div>
+                <form method="GET" action="https://php-task-manager-ru.hexlet.app/tasks">
+                    <div class="flex">
+                        <select class="rounded border-gray-300" name="filter[status_id]" id="filter[status_id]"><option value selected="selected">Статус</option><option value="1">новая</option>
+
+
+                            <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[created_by_id]"><option value selected="selected">Автор</option><option value="1">Бирюкова София Максимовна</option></select>
+
+                            <select class="rounded border-gray-300" name="filter[assigned_to_id]" id="filter[assigned_to_id]"><option value selected="selected">Исполнитель</option><option value="1"></select>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Применить</button>
+                </form>
+            </div>
         </div>
+
+        <div class="ml-auto">
+        </div>
+    </div>
+
+
         <table class="mt-4">
             <thead class="border-b-2 border-solid border-black text-left">
             <tr>
@@ -50,6 +71,8 @@
                 </tr>
         @endforeach
     </div>
-    </section>
-    </div>
+        </table>
+@endsection
+@section('pagination')
+    {{ $tasks->links() }}
 @endsection

@@ -46,4 +46,7 @@
     </div>
     </section>
     </div>
+    @endsection
+@section('pagination')
+    {{ $labels->links() }}
 @endsection

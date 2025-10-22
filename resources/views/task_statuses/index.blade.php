@@ -46,3 +46,6 @@
     </section>
 </div>
 @endsection
+@section('pagination')
+    {{ $taskStatuses->links() }}
+@endsection

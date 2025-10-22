@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid col-span-full">
         <h1 class="mb-5">Изменение задачи</h1>
-        <form class="w-50" method="POST" action="{{ route('tasks.update', $task) }}">
+        <form class="w-50" method="POST" action="{{ route('tasks.update', $task->id) }}">
             @csrf @method('PUT')
             <div class="flex flex-col">
                 <div>
@@ -38,7 +38,7 @@
                 @enderror
             </div>
             <div class="mt-2">
-                <label for="status_id">Исполнитель</label>
+                <label for="assigned_by_id">Исполнитель</label>
             </div>
             <div>
                 <select class="rounded border-gray-300 w-1/3" name="assigned_by_id" id="assigned_by_id">
@@ -51,6 +51,15 @@
             @error('assigned_by_id')
                 <div class="text-rose-600">{{ $message }}</div>
             @enderror
+            <div class="mt-2">
+                <label for="labels[]">Метки</label>
+            </div>
+            <div>
+                <select class="rounded border-gray-300 w-1/3 h-32" name="labels[]" id="labels[]" multiple>
+                    @foreach ($labels->all() as $label)
+                        <option value="{{ $label->id }}" {{ $task->labels->find($label->id) ? 'selected' : '' }}>{{ $label->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mt-2">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Обновить</button>

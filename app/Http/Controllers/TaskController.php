@@ -6,6 +6,7 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,9 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::paginate();
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFields(['status_id', 'creator_by_id', 'assigned_by_id'])
+            ->get();
         $taskStatuses = new TaskStatus();
         $users = new User();
         return view('tasks.index', compact('tasks', 'taskStatuses', 'users'));
@@ -45,18 +49,18 @@ class TaskController extends Controller
             'description' => "max:1000",
             'status_id' => "required|string",
             'assigned_by_id' => "nullable|string",
-            'labels' => "array"
+            'labels' => "nullable|array"
 
         ]);
         $task = new Task();
-        if (array_key_exists('labels', $data)) {
-            $label = Label::findOrFail($data['labels']);
-            $task->labels()->attach($label);
-        }
         $task->fill($data);
         $task->creator_by_id = Auth::user()->id;
 
         $task->save();
+
+        if (array_key_exists('labels', $data)) {
+            $task->labels()->attach($data['labels']);
+        }
 
         flash('Задача успешно создана')->success();
 
@@ -76,9 +80,8 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        $task = Task::findOrFail($id);
         $taskStatuses = new TaskStatus();
         $users = new User();
         $labels = new Label();
@@ -89,18 +92,23 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Task $task)
     {
-        $task = Task::findOrFail($id);
         $data = $request->validate([
             'name' => "required|unique:tasks,name,{$task->id}",
             'description' => "max:1000",
             'status_id' => "required|string",
-            'assigned_by_id' => "nullable|string"
+            'assigned_by_id' => "nullable|string",
+            'labels' => "nullable|array"
 
         ]);
         $task->fill($data);
         $task->save();
+        if (array_key_exists('labels', $data)) {
+            $task->labels()->sync($data['labels']);
+        } else {
+            $task->labels()->sync([]);
+        }
         flash(__('Task successfully changed'))->success();;
         return redirect()->route('tasks.index');
     }
