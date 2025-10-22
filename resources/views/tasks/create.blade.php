@@ -11,12 +11,18 @@
                 <div class="mt-2">
                     <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{ old('name') }}">
                 </div>
+                @error('name')
+                <div class="text-rose-600">{{ $message }}</div>
+                @enderror
                 <div class="mt-2">
                     <label for="description">Описание</label>
                 </div>
                 <div>
                     <textarea class="rounded border-gray-300 w-1/3 h-32" name="description" id="description">{{ old('description') }}</textarea>
                 </div>
+                @error('description')
+                <div class="text-rose-600">{{ $message }}</div>
+                @enderror
                 <div class="mt-2">
                     <label for="status_id">Статус</label>
                 </div>
@@ -30,7 +36,9 @@
                     </select>
                 </div>
 
-            </div>
+            @error('status_id')
+                <div class="text-rose-600">{{ $message }}</div>
+            @enderror
             <div class="mt-2">
                 <label for="status_id">Исполнитель</label>
             </div>
@@ -43,17 +51,14 @@
                         </option>
                 </select>
             </div>
-            <div class="mt-2">
-                <input type="hidden" name="_method" id="_method" value="POST">
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="text-rose-600">{{ $error }}</div>
-                    @endforeach
-                @endif
+                @error('assigned_by_id')
+                    <div class="text-rose-600">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mt-2">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Создать</button>
             </div>
-    </div>
+        </div>
     </form>
+    </div>
 @endsection

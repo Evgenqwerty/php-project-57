@@ -40,7 +40,7 @@ class TaskStatusController extends Controller
         $taskStatus = new TaskStatus();
         $taskStatus->fill($data);
         $taskStatus->save();
-        flash('Статус успешно создан');
+        flash('Статус успешно создан')->success();
 
         return redirect()->route('task_statuses.index');
     }
@@ -68,13 +68,12 @@ class TaskStatusController extends Controller
     public function update(Request $request, $id)
     {
         $taskStatus = TaskStatus::findOrFail($id);
-        var_dump($taskStatus);
         $data = $request->validate([
             'name' => "required|unique:task_statuses,name,{$taskStatus->id}",
         ]);
         $taskStatus->fill($data);
         $taskStatus->save();
-        flash(__('Status successfully changed'));
+        flash(__('Status successfully changed'))->success();
         return redirect()->route('task_statuses.index');
     }
 

@@ -60,7 +60,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        $taskStatus = TaskStatus::findOrFail($task->status_id)->name;
+
+        return view('tasks.show', compact('task', 'taskStatus'));
     }
 
     /**

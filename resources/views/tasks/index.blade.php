@@ -28,10 +28,8 @@
             @foreach ($tasks as $task)
                 <tr class="border-b border-dashed text-left">
                     <td>{{ $task->id }}</td>
-                    <td>{{ $task->status->name }}</td>
-                    <td>{{ $task->description }}</td>
                     <td>{{ $taskStatuses::find($task->status_id)->name }}</td>
-                    <td>{{ $task->name }}</td>
+                    <td><a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a></td>
                     <td>{{ $users::find($task->creator_by_id)->name }}</td>
                     <td>{{ $users::find($task->assigned_by_id)->name ?? '' }}</td>
                     <td>{{ $task->created_at->format('Y-m-d') }}</td>
@@ -41,11 +39,11 @@
                                 <a data-confirm="Вы уверены?"
                                    data-method="delete"
                                    class="text-red-600 hover:text-red-900"
-                                   href="{{ route('tasks.destroy', ['task'=>$task->id]) }}"
+                                   href="{{ route('tasks.destroy', $task->id) }}"
                                    rel="nofollow">
                                     Удалить                        </a>
                             @endif
-                            <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', ['task'=>$task->id])}}">
+                                <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task->id) }}">
                                 Изменить                        </a>
                         </td>
                     @endauth
