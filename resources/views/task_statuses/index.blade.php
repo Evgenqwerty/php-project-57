@@ -3,23 +3,21 @@
 
     <div class="grid col-span-full">
         @include('flash::message')
-        <h1 class="mb-5">Статусы</h1>
+        <h1 class="mb-5">{{ __('layout.task_statuses') }}</h1>
                 <div>
                     @auth
-                        <a href="{{ route('task_statuses.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Создать статус
-                        </a>
+                        <a href="{{ route('task_statuses.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{ __('layout.task_statuses_create') }}</a>
                     @endauth
                 </div>
 
                 <table class="mt-4">
                     <thead class="border-b-2 border-solid border-black text-left">
                     <tr>
-                        <th>ID</th>
-                        <th>Имя</th>
-                        <th>Дата создания</th>
+                        <th>{{ __('layout.table_id') }}</th>
+                        <th>{{ __('layout.table_name') }}</th>
+                        <th>{{ __('layout.table_date_of_creation') }}</th>
                         @auth
-                            <th>Действия</th>
+                            <th>{{ __('layout.table_actions') }}</th>
                         @endauth
                     </tr>
                     </thead>
@@ -30,14 +28,13 @@
                             <td>{{ $status->created_at->format('Y-m-d') }}</td>
                             @auth
                                 <td>
-                                    <a data-confirm="Вы уверены?"
+                                    <a data-confirm="{{ __('layout.table_delete_question') }}"
                                        data-method="delete"
                                        class="text-red-600 hover:text-red-900"
                                        href="{{ route('task_statuses.destroy', $status->id) }}"
-                                       rel="nofollow">
-                                        Удалить                        </a>
-                                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('task_statuses.edit', $status->id) }}">
-                                        Изменить</a>
+                                       rel="nofollow">{{ __('layout.table_delete') }}</a>
+                                    <a class="text-blue-600 hover:text-blue-900"
+                                       href="{{ route('task_statuses.edit', $status->id) }}">{{ __('layout.table_edit') }}</a>
                                 </td>
                             @endauth
                         </tr>
