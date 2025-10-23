@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
         <div class="grid col-span-full">
-            <h2 class="mb-5">Просмотр задачи: Доработать команду подготовки БД        <a href="{{ route('tasks.edit', $task->id)}}">&#9881;</a>
+            <h2 class="mb-5">{{ __('layout.view_task') }}: {{ $task->name }}<a href="{{ route('tasks.edit', $task->id)}}">&#9881;</a>
             </h2>
-                <p><span class="font-black">Имя:</span> {{ $task->name }}</p>
-                <p><span class="font-black">Статус:</span> {{ $taskStatus }}</p>
-                <p><span class="font-black">Описание:</span>{{ $task->description }}</p>
-                <p><span class="font-black">Метки:</span></p>
+                <p><span class="font-black">{{ __('layout.table_name') }}:</span> {{ $task->name }}</p>
+                <p><span class="font-black">{{ __('layout.table_task_status') }}:</span> {{ $taskStatus }}</p>
+                <p><span class="font-black">{{ __('layout.table_description') }}:</span>{{ $task->description }}</p>
+                <p><span class="font-black">{{ __('layout.labels') }}:</span></p>
             <div>
                 @foreach ($task->labels as $label)
                     <div class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">

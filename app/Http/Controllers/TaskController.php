@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $data = $request->validate([
@@ -48,17 +45,16 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $task = new Task();
+        if (Auth::guest()) {
+            return abort(403);
+        }
         $taskStatuses = new TaskStatus();
         $users = new User();
         $labels = new Label();
 
-        return view('tasks.create', compact('task', 'taskStatuses', 'users', 'labels'));
+        return view('tasks.create', compact('taskStatuses', 'users', 'labels'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -79,14 +75,11 @@ class TaskController extends Controller
             $task->labels()->attach($data['labels']);
         }
 
-        flash('Задача успешно создана')->success();
+        flash(__('controllers.tasks_create'))->success();
 
         return redirect()->route('tasks.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Task $task)
     {
         $taskStatus = TaskStatus::findOrFail($task->status_id)->name;
@@ -94,9 +87,6 @@ class TaskController extends Controller
         return view('tasks.show', compact('task', 'taskStatus'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Task $task)
     {
         $taskStatuses = new TaskStatus();
@@ -106,9 +96,6 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task', 'taskStatuses', 'users', 'labels'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Task $task)
     {
         $data = $request->validate([
@@ -126,22 +113,19 @@ class TaskController extends Controller
         } else {
             $task->labels()->sync([]);
         }
-        flash(__('Task successfully changed'))->success();;
+        flash(__('controllers.tasks_update'))->success();
         return redirect()->route('tasks.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        if (Auth::user()->id === $task->creator_by_id) {
+        if (Auth::id() === $task->creator_by_id) {
+            $task->labels()->detach();
             $task->delete();
-            flash('Задача успешно удалена')->success();
+            flash(__('controllers.tasks_destroy'))->success();
         } else {
-            flash('Не удалось удалить задачу')->error();
+            flash(__('controllers.tasks_destroy_failed'))->error();
         }
-
         return redirect()->route('tasks.index');
     }
 }

@@ -4,30 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Label;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class LabelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $labels = Label::paginate();
         return view('labels.index', compact('labels'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $label = new Label();
-        return view('labels.create', compact('label'));
+        if (Auth::guest()) {
+            return abort(403);
+        }
+        return view('labels.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -38,30 +33,16 @@ class LabelController extends Controller
         $label = new Label();
         $label->fill($data);
         $label->save();
-        flash('Метка успешно создана')->success();
+        flash(__('controllers.label_create'))->success();
 
         return redirect()->route('labels.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Label $label)
-    {
-       //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Label $label)
     {
         return view('labels.edit', compact('label'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Label $label)
     {
         $data = $request->validate([
@@ -71,22 +52,19 @@ class LabelController extends Controller
         $label->fill($data);
         $label->save();
 
-        flash('Метка успешно изменена')->success();
+        flash(__('controllers.label_update'))->success();
         return redirect()->route('labels.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Label $label)
     {
-        try {
-            $label->delete();
-            flash('Метка успешно удалена')->success();
-        } catch(QueryException $qe) {
-            flash('Не удалось удалить метку')->error();
+        if ($label->tasks()->exists()) {
+            flash(__('controllers.label_statuses_destroy_failed'))->error();
+            return back();
         }
+        $label->delete();
 
+        flash(__('controllers.label_destroy'))->success();
         return redirect()->route('labels.index');
     }
 }

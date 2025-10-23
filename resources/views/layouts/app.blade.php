@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @csrf
 
-    <title>Менеджер задач</title>
+    <title>{{ __('layout.title') }}</title>
 
     <link rel="preload" as="style" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css" /><link rel="modulepreload" href="https://php-task-manager-ru.hexlet.app/build/assets/app.42df0f0d.js" /><link rel="stylesheet" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css" />
     <script src="{{ asset('js/app.js') }}"></script>
@@ -21,19 +21,19 @@
         <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                 <a href="{{ route('welcome') }}" class="flex items-center">
-                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер задач</span>
+                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{{ __('layout.title') }}</span>
                 </a>
                 <div class="flex items-center lg:order-2">
                     @guest
                         <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Вход
+                            {{ __('layout.login') }}
                         </a>
                         <a href="{{ route('register') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
-                            Регистрация
+                            {{ __('layout.registration') }}
                         </a>
                     @endguest
                     @auth
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"> Выход </a>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"> {{ __('layout.logout') }} </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
                     @endauth
                 </div>
@@ -41,15 +41,15 @@
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
                             <a href="{{ route('tasks.index') }}" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
-                                Задачи                                </a>
+                                {{ __('layout.task_header') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('task_statuses.index') }}" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
-                                Статусы                                </a>
+                                {{ __('layout.task_statuses_header') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('labels.index') }}" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
-                                Метки                                </a>
+                                {{ __('layout.labels_header') }}</a>
                         </li>
                     </ul>
                 </div>

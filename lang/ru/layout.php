@@ -38,4 +38,5 @@ return [
     'create_button_task_statuses' => 'Создать статус',
     'create_button_label' => 'Создать метку',
     'create_button_task' => 'Создать задачу',
+    'view_task' => 'Просмотр задачи'
 ];
