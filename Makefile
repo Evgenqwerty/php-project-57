@@ -7,7 +7,7 @@ install:
 	npm run build
 
 start:
-	php artisan serve
+	php artisan serve --host 0.0.0.0
 
 lint:
 	composer exec --verbose phpcs -- --standard=PSR12 app

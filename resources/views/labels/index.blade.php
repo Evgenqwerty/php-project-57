@@ -34,9 +34,11 @@
                             <a data-confirm="{{ __('layout.table_delete_question') }}"
                                data-method="delete"
                                class="text-red-600 hover:text-red-900"
-                               href="{{ route('labels.destroy', $label->id) }}"
+                               href="{{ route('labels.destroy', $label) }}"
                                rel="nofollow">{{ __('layout.table_delete') }}</a>
-                            <a class="text-blue-600 hover:text-blue-900" href="{{ route('labels.edit', $label->id ) }}">
+                            @csrf
+                            @method('DELETE')
+                            <a class="text-blue-600 hover:text-blue-900" href="{{ route('labels.edit', $label) }}">
                                 {{ __('layout.table_edit') }}</a>
                         </td>
                     @endauth

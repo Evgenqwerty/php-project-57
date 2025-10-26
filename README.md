@@ -5,3 +5,20 @@
 
 ### Render.com site:
 https://php-project-57-vvic.onrender.com/
+
+Cистема управления задачами. Позволяет создавать задачи, назначать исполнителей, 
+менять их статусы и ставить метки. Для работы с системой необходима регистрация и аутентификация.  
+
+## Требования:
+
+- PHP ^8.1
+- Node.js & npm
+- Sqlite for local
+
+## Локальная установка проекта
+
+```shell
+git clone https://github.com/Evgenqwerty/php-project-57.git
+cd php-project-57
+make install
+```

@@ -9,7 +9,6 @@
                         <a href="{{ route('task_statuses.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{ __('layout.task_statuses_create') }}</a>
                     @endauth
                 </div>
-
                 <table class="mt-4">
                     <thead class="border-b-2 border-solid border-black text-left">
                     <tr>
@@ -31,10 +30,12 @@
                                     <a data-confirm="{{ __('layout.table_delete_question') }}"
                                        data-method="delete"
                                        class="text-red-600 hover:text-red-900"
-                                       href="{{ route('task_statuses.destroy', $status->id) }}"
+                                       href="{{ route('task_statuses.destroy', $status) }}"
                                        rel="nofollow">{{ __('layout.table_delete') }}</a>
+                                    @csrf
+                                    @method('DELETE')
                                     <a class="text-blue-600 hover:text-blue-900"
-                                       href="{{ route('task_statuses.edit', $status->id) }}">{{ __('layout.table_edit') }}</a>
+                                       href="{{ route('task_statuses.edit', $status) }}">{{ __('layout.table_edit') }}</a>
                                 </td>
                             @endauth
                         </tr>

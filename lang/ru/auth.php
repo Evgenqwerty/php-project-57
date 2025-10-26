@@ -18,4 +18,10 @@ return [
     'throttle' => 'Слишком много попыток входа. Повторите попытку через :seconds секунд.',
     'Register' => 'Зарегистрировать',
     'Log in' => 'Войти',
+    'Password' => 'Пароль',
+    'Forgot your password?' => 'Забыли пароль?',
+    'Remember me' => 'Запомнить меня',
+    'Confirm Password' => 'Подтвердите пароль',
+    'Name' => 'Имя',
+    'Already registered?' => 'Уже зарегистрированы?'
 ];
