@@ -21,4 +21,15 @@ Cистема управления задачами. Позволяет созд
 git clone https://github.com/Evgenqwerty/php-project-57.git
 cd php-project-57
 make install
+```  
+
+## Запуск приложения
+```shell
+make start
+```
+
+## Запуст тестов
+
+```shell
+make test
 ```

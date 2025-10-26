@@ -40,6 +40,9 @@ class LabelController extends Controller
 
     public function edit(Label $label)
     {
+        if (Auth::guest()) {
+            return abort(403);
+        }
         return view('labels.edit', compact('label'));
     }
 
@@ -58,6 +61,9 @@ class LabelController extends Controller
 
     public function destroy(Label $label)
     {
+        if (Auth::guest()) {
+            return abort(403);
+        }
         if ($label->tasks()->exists()) {
             flash(__('controllers.label_statuses_destroy_failed'))->error();
             return back();

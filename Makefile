@@ -17,3 +17,6 @@ migrate:
 
 console:
 	php artisan tinker
+
+test:
+	php artisan test

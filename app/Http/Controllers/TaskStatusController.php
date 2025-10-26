@@ -40,6 +40,9 @@ class TaskStatusController extends Controller
 
     public function edit(TaskStatus $taskStatus)
     {
+        if (Auth::guest()) {
+            return abort(403);
+        }
         $taskStatus = TaskStatus::findOrFail($id);
         return view('task_statuses.edit', compact('taskStatus'));
     }
@@ -57,6 +60,9 @@ class TaskStatusController extends Controller
 
     public function destroy(TaskStatus $taskStatus)
     {
+        if (Auth::guest()) {
+            return abort(403);
+        }
         if ($taskStatus->tasks()->exists()) {
             flash(__('controllers.task_statuses_destroy_failed'))->error();
             return back();

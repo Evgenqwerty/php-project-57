@@ -89,6 +89,9 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
+        if (Auth::guest()) {
+            return abort(403);
+        }
         $taskStatuses = new TaskStatus();
         $users = new User();
         $labels = new Label();
@@ -119,6 +122,9 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
+        if (Auth::guest()) {
+            return abort(403);
+        }
         if (Auth::id() === $task->creator_by_id) {
             $task->labels()->detach();
             $task->delete();
