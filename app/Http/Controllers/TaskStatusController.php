@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TaskStatus;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Database\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class TaskStatusController extends Controller
 {
@@ -43,7 +43,6 @@ class TaskStatusController extends Controller
         if (Auth::guest()) {
             return abort(403);
         }
-        $taskStatus = TaskStatus::findOrFail($id);
         return view('task_statuses.edit', compact('taskStatus'));
     }
 

@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid col-span-full">
         <h1 class="mb-5">{{ __('layout.label_edit') }}</h1>
-        <form class="w-50" method="POST" action="{{ route('label.update', $labels) }}">
+        <form class="w-50" method="POST" action="{{ route('labels.update', $label) }}">
             @csrf @method('PUT')
             <div class="flex flex-col">
                 <div>
