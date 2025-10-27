@@ -1,11 +1,9 @@
+# Стадия сборки фронтенда
 FROM node:18 as frontend
 
 WORKDIR /app
-
-# Копируем все необходимые файлы для фронтенда
 COPY package.json package-lock.json vite.config.js ./
 COPY resources ./resources
-COPY public ./public
 
 RUN npm install --force && \
     npm run build
@@ -29,15 +27,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 WORKDIR /app
 COPY . .
 
-# Копируем собранные ассеты из frontend stage
+# Копируем собранные ассеты
 COPY --from=frontend /app/public/build /app/public/build
 
 # Установка PHP зависимостей
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Настройка прав для папки build
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/public/build && \
-    chmod -R 775 /app/storage /app/bootstrap/cache /app/public/build
+# Настройка прав
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
+    chmod -R 775 /app/storage /app/bootstrap/cache
 
 EXPOSE 10000
 
