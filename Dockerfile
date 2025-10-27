@@ -1,42 +1,25 @@
-# Стадия сборки фронтенда
-FROM node:18 as frontend
+FROM php:8.4-cli
+
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libzip-dev
+RUN docker-php-ext-install pdo pdo_pgsql zip
+# RUN docker-php-ext-configure pdo pdo_pgsql
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');"
+
+RUN curl -sL https://deb.nodesource.com/setup_24.x | bash -
+RUN apt-get install -y nodejs
 
 WORKDIR /app
-COPY package.json package-lock.json vite.config.js ./
-COPY resources ./resources
 
-RUN npm install --force && \
-    npm run build
-
-# Основной образ
-FROM php:8.2-fpm
-
-# Установка системных зависимостей
-RUN apt-get update && \
-    apt-get install -y \
-        git \
-        unzip \
-        libpq-dev \
-        libzip-dev && \
-    docker-php-ext-install pdo pdo_pgsql zip && \
-    rm -rf /var/lib/apt/lists/*
-
-# Установка Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-WORKDIR /app
 COPY . .
+RUN composer install
+RUN npm ci
+RUN npm run build
 
-# Копируем собранные ассеты
-COPY --from=frontend /app/public/build /app/public/build
+RUN > database/database.sqlite
 
-# Установка PHP зависимостей
-RUN composer install --no-dev --optimize-autoloader --no-scripts
-
-# Настройка прав
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
-    chmod -R 775 /app/storage /app/bootstrap/cache
-
-EXPOSE 10000
-
-CMD ["bash", "-c", "php artisan migrate --force && php artisan optimize && php -S 0.0.0.0:$PORT public/index.php"]
+CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
