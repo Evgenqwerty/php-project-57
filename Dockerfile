@@ -32,9 +32,6 @@ COPY . .
 # Копируем собранные ассеты из frontend stage
 COPY --from=frontend /app/public/build /app/public/build
 
-# Убедитесь что manifest.json тоже копируется
-COPY --from=frontend /app/public/hot /app/public/hot || true
-
 # Установка PHP зависимостей
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
