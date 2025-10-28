@@ -1,29 +1,23 @@
 FROM php:8.4-cli
 
-# Установка PostgreSQL и зависимостей
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    libzip-dev \
-    && docker-php-ext-install pdo pdo_pgsql zip \
-    && rm -rf /var/lib/apt/lists/*
+    libzip-dev
+RUN docker-php-ext-install pdo pdo_pgsql zip
+# RUN docker-php-ext-configure pdo pdo_pgsql
 
-# Установка Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-# Установка Node.js
-RUN curl -sL https://deb.nodesource.com/setup_24.x | bash - \
-    && apt-get update && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_24.x | bash -
+RUN apt-get install -y nodejs
 
 WORKDIR /app
 
 COPY . .
-
-# Установка зависимостей и сборка (БЕЗ создания SQLite)
-RUN composer install \
-    && npm ci \
-    && npm run build
+RUN composer install
+RUN npm ci
+RUN npm run build
 
 CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
