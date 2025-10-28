@@ -1,6 +1,6 @@
 FROM php:8.4-cli
 
-# Установка системных зависимостей
+# Установка PostgreSQL и зависимостей
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
@@ -21,10 +21,9 @@ WORKDIR /app
 
 COPY . .
 
-# Установка зависимостей и сборка
+# Установка зависимостей и сборка (БЕЗ создания SQLite)
 RUN composer install \
     && npm ci \
-    && npm run build \
-    && > database/database.sqlite
+    && npm run build
 
 CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
