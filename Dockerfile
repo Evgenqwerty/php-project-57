@@ -24,4 +24,4 @@ RUN composer install \
     && npm ci \
     && npm run build
 
-CMD ["bash", "-c", "echo 'DB_CONNECTION='$DB_CONNECTION && php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
+CMD ["bash", "-c", "php artisan config:clear && php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
