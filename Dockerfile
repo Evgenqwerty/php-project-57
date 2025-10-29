@@ -1,14 +1,14 @@
 FROM php:8.4-cli
 
-# 1. Системные зависимости и PHP расширения
+# Установка зависимостей и расширений
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
-    && docker-php-ext-configure pdo pdo_pgsql \
+    postgresql-client \
     && docker-php-ext-install pdo pdo_pgsql zip \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Установка инструментов (Composer + Node.js)
+# Остальная часть без изменений...
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');" \
@@ -20,7 +20,6 @@ WORKDIR /app
 
 COPY . .
 
-# 3. Установка зависимостей и сборка проекта
 RUN composer install \
     && npm ci \
     && npm run build
