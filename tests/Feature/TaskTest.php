@@ -81,7 +81,7 @@ class TaskTest extends TestCase
 
         $response->assertRedirect(route('tasks.index'));
 
-        $response = $this->actingAs($this->user)->post('/logout');
+        $this->actingAs($this->user)->post('/logout');
 
         $response = $this->get(route('tasks.edit', $this->task));
         $response->assertStatus(403);
