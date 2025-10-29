@@ -42,7 +42,7 @@ class TaskTest extends TestCase
         $response = $this->get(route('tasks.create'));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);
@@ -63,7 +63,7 @@ class TaskTest extends TestCase
 
     public function test_edit_task(): void
     {
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);
@@ -93,7 +93,7 @@ class TaskTest extends TestCase
         $response = $this->delete(route('tasks.destroy', $this->task));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);

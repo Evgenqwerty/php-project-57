@@ -33,7 +33,7 @@ class LabelsTest extends TestCase
         $response = $this->get(route('labels.create'));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);
@@ -55,7 +55,7 @@ class LabelsTest extends TestCase
         $response = $this->get(route('labels.edit', $this->label));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);
@@ -77,7 +77,7 @@ class LabelsTest extends TestCase
         $response = $this->delete(route('labels.destroy', $this->label));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);

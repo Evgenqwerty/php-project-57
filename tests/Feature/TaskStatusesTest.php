@@ -33,7 +33,7 @@ class TaskStatusesTest extends TestCase
         $response = $this->get(route('task_statuses.create'));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);
@@ -55,7 +55,7 @@ class TaskStatusesTest extends TestCase
         $response = $this->get(route('task_statuses.edit', $this->status));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);
@@ -78,7 +78,7 @@ class TaskStatusesTest extends TestCase
         $response = $this->delete(route('task_statuses.destroy', $this->status));
         $response->assertStatus(403);
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $this->user->email,
             'password' => 'password',
         ]);

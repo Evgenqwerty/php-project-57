@@ -1,5 +1,7 @@
 <?php
 
+$invalidSelectedMessageRu = 'Выбранный :attribute недействителен.';
+
 return [
 
     /*
@@ -47,8 +49,8 @@ return [
     'doesnt_start_with' => 'The :attribute не может начинаться с одного из следующих: :values.',
     'email' => ':attribute должен быть действительным адресом электронной почты.',
     'ends_with' => 'The :attribute должен заканчиваться одним из следующих: :values.',
-    'enum' => 'Выбранный :attribute недействителен.',
-    'exists' => 'Выбранный :attribute недействителен.',
+    'enum' => $invalidSelectedMessageRu,
+    'exists' => $invalidSelectedMessageRu,
     'file' => ':attribute должен быть файлом.',
     'filled' => 'Поле :attribute должно иметь значение.',
     'gt' => [
@@ -64,7 +66,7 @@ return [
         'string' => ':attribute должен быть больше или равен символам :value.',
     ],
     'image' => ':attribute должен быть изображением.',
-    'in' => 'Выбранный :attribute недействителен.',
+    'in' => $invalidSelectedMessageRu,
     'in_array' => 'Поле :attribute не существует в :other.',
     'integer' => ':attribute должен быть целым числом.',
     'ip' => ':attribute должен быть действительным IP-адресом.',
@@ -101,7 +103,7 @@ return [
     ],
     'min_digits' => ':attribute должен содержать не менее :min цифр.',
     'multiple_of' => ':attribute должен быть кратен :value.',
-    'not_in' => 'Выбранный :attribute недействителен.',
+    'not_in' => $invalidSelectedMessageRu,
     'not_regex' => 'Неверный формат :attribute.',
     'numeric' => ':attribute должен быть числом.',
     'password' => [
