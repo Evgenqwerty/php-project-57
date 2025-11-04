@@ -138,7 +138,7 @@ return [
     'starts_with' => ':attribute должен начинаться с одного из следующих: :values.',
     'string' => ':attribute должен быть строкой.',
     'timezone' => ':attribute должен быть действительным часовым поясом.',
-    'unique' => 'Метка с таким именем уже существует',
+    'unique' => ':attribute с таким именем уже существует',
     'uploaded' => 'Не удалось загрузить :attribute.',
     'url' => ':attribute должен быть допустимым URL.',
     'uuid' => ':attribute должен быть действительным UUID.',
