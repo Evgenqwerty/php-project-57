@@ -4,6 +4,18 @@
     <div class="grid col-span-full">
         @include('flash::message')
         <h1 class="mb-5">{{ __('layout.tasks') }}</h1>
+
+        {{-- ВРЕМЕННАЯ ОТЛАДКА ДЛЯ ТЕСТОВ --}}
+        <div style="display: none;" id="debug-info">
+            Total tasks: {{ $tasks->total() }}
+            @foreach($tasks as $task)
+                Task: {{ $task->name }}, ID: {{ $task->id }}, Status: {{ $task->status_id }}, Creator: {{ $task->creator_by_id }}, Assigned: {{ $task->assigned_by_id }}
+            @endforeach
+            Filter: {{ json_encode($filter) }}
+        </div>
+        {{-- КОНЕЦ ОТЛАДКИ --}}
+
+
         <div class="w-full flex items-center">
             <div>
                 <form method="GET" action="{{ route('tasks.index') }}">

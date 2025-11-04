@@ -23,6 +23,8 @@ class TaskController extends Controller
             'assigned_by_id' => null
         ];
 
+        \Log::info('Tasks index called', ['filter' => $data['filter'] ?? []]);
+
         $filterTasks = QueryBuilder::for(Task::class);
 
         if (!empty($data['filter'])) {
