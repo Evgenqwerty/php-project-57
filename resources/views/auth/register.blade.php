@@ -44,9 +44,9 @@
                 {{ __('auth.Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
-                {{ __('auth.Register') }}
-            </x-primary-button>
+            <button type="submit" class="ms-4 bg-blue-500 text-white px-4 py-2 rounded">
+                Зарегистрировать
+            </button>
         </div>
     </form>
 </x-guest-layout>
