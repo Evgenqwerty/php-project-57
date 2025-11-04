@@ -6,6 +6,7 @@ use App\Models\Label;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LabelRequest;
 
 class LabelController extends Controller
 {
@@ -23,12 +24,9 @@ class LabelController extends Controller
         return view('labels.create');
     }
 
-    public function store(Request $request)
+    public function store(LabelRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:labels',
-            'description' => "max:1000"
-        ]);
+        $data = $request->validated();
 
         $label = new Label();
         $label->fill($data);

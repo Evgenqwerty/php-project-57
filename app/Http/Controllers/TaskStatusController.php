@@ -6,6 +6,7 @@ use App\Models\TaskStatus;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TaskStatusRequest;
 
 class TaskStatusController extends Controller
 {
@@ -24,11 +25,9 @@ class TaskStatusController extends Controller
         return view('task_statuses.create');
     }
 
-    public function store(Request $request)
+    public function store(TaskStatusRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:task_statuses',
-        ]);
+        $data = $request->validated();
 
         $taskStatus = new TaskStatus();
         $taskStatus->fill($data);
