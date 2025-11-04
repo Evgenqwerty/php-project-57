@@ -61,7 +61,7 @@ class TaskController extends Controller
             'name' => "required|unique:tasks",
             'description' => "max:1000",
             'status_id' => "required|string",
-            'assigned_by_id' => "nullable|string",
+            'assigned_to_id' => "nullable|string",
             'labels' => "nullable|array"
 
         ]);
