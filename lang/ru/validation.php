@@ -155,8 +155,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'unique' => 'Статус с таким именем уже существует',
         ],
     ],
 
@@ -174,6 +174,7 @@ return [
     'attributes' => [
         'password' => 'Пароль',
         'Password' => 'Пароль',
+        'name' => 'Статус'
 
     ],
 
