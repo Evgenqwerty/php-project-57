@@ -61,15 +61,21 @@ class TaskController extends Controller
             'name' => "required|unique:tasks",
             'description' => "max:1000",
             'status_id' => "required|string",
+            'assigned_to_id' => "nullable|string", // принимаем оба варианта
             'assigned_by_id' => "nullable|string",
             'labels' => "nullable|array"
-
         ]);
+
+        // Преобразуем assigned_to_id в assigned_by_id если нужно
+        if (isset($data['assigned_to_id']) && !isset($data['assigned_by_id'])) {
+            $data['assigned_by_id'] = $data['assigned_to_id'];
+        }
+
         $task = new Task();
         $task->fill($data);
         $task->creator_by_id = Auth::user()->id;
-
         $task->save();
+
 
         if (array_key_exists('labels', $data)) {
             $task->labels()->attach($data['labels']);
