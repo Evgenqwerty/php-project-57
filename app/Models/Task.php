@@ -10,7 +10,7 @@ class Task extends Model
         'name',
         'description',
         'status_id',
-        'assigned_to_id',
+        'assigned_by_id',
     ];
 
     public function creator()

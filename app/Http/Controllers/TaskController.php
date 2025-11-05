@@ -20,7 +20,7 @@ class TaskController extends Controller
         $filter = [
             'status_id' => null,
             'creator_by_id' => null,
-            'assigned_to_id' => null
+            'assigned_by_id' => null
         ];
 
         $filterTasks = QueryBuilder::for(Task::class);
