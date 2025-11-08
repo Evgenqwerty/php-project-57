@@ -14,6 +14,8 @@ class TaskTest extends TestCase
     use RefreshDatabase;
 
     private $status;
+    private $user;
+    private $task;
 
     public function setUp(): void
     {

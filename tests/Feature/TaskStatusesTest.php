@@ -13,6 +13,7 @@ class TaskStatusesTest extends TestCase
     use RefreshDatabase;
 
     private $status;
+    private $user;
 
     public function setUp(): void
     {
@@ -73,7 +74,6 @@ class TaskStatusesTest extends TestCase
 
     public function testDeleteTaskStatus(): void
     {
-
         $response = $this->delete(route('task_statuses.destroy', $this->status));
         $response->assertStatus(403);
 

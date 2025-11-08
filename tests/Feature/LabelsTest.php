@@ -13,7 +13,7 @@ class LabelsTest extends TestCase
     use RefreshDatabase;
 
     private Label $label;
-    private User $user; // Добавлено объявление свойства
+    private User $user;
 
     public function setUp(): void
     {
