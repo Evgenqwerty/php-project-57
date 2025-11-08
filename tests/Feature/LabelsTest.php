@@ -12,7 +12,8 @@ class LabelsTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $label;
+    private Label $label;
+    private User $user; // Добавлено объявление свойства
 
     public function setUp(): void
     {

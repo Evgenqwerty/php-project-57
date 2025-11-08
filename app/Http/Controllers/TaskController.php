@@ -32,17 +32,15 @@ class TaskController extends Controller
         // Исправленные проверки
         if (isset($data['filter']) && count($data['filter']) > 0) {
             // Статус
-            if (isset($data['filter']['status_id']) && $data['filter']['status_id'] !== null) {
+            if (isset($data['filter']['status_id'])) {
                 $filterTasks->where('status_id', $data['filter']['status_id']);
             }
 
-            // Создатель
-            if (isset($data['filter']['created_by_id']) && $data['filter']['created_by_id'] !== null) {
+            if (isset($data['filter']['created_by_id'])) {
                 $filterTasks->where('creator_by_id', $data['filter']['created_by_id']);
             }
 
-            // Исполнитель (маппинг на assigned_by_id)
-            if (isset($data['filter']['assigned_to_id']) && $data['filter']['assigned_to_id'] !== null) {
+            if (isset($data['filter']['assigned_to_id'])) {
                 $filterTasks->where('assigned_by_id', $data['filter']['assigned_to_id']);
             }
         }
