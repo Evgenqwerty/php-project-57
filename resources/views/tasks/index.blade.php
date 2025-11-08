@@ -23,7 +23,7 @@
                             @endforeach
                         </select>
 
-                        <select class="rounded border-gray-300" name="filter[assigned_by_id]" id="filter[assigned_by_id]">
+                        <select class="rounded border-gray-300" name="filter[assigned_to_id]" id="filter[assigned_by_id]">
                             <option value selected="selected">{{ __('layout.table_assigned') }}</option>
                             @foreach ($users->all() as $user)
                                 <option value="{{ $user->id }}" {{ $user->id == $filter['assigned_by_id'] ? 'selected' : '' }}>{{ $user->name }}</option>
