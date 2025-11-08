@@ -11,6 +11,7 @@ use App\Models\User;
 class LabelsTest extends TestCase
 {
     use RefreshDatabase;
+
     private $label;
 
     public function setUp(): void
@@ -47,7 +48,6 @@ class LabelsTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertRedirect(route('labels.index'));
-
     }
 
     public function testEditLabel(): void
@@ -69,7 +69,6 @@ class LabelsTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertRedirect(route('labels.index'));
-
     }
 
     public function testDeleteLabel(): void
@@ -87,6 +86,5 @@ class LabelsTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertRedirect(route('labels.index'));
-
     }
 }

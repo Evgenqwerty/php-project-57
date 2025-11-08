@@ -12,6 +12,7 @@ use App\Models\TaskStatus;
 class TaskTest extends TestCase
 {
     use RefreshDatabase;
+
     private $status;
 
     public function setUp(): void
@@ -58,7 +59,6 @@ class TaskTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertRedirect(route('tasks.index'));
-
     }
 
     public function testEditTask(): void
@@ -85,7 +85,6 @@ class TaskTest extends TestCase
 
         $response = $this->get(route('tasks.edit', $this->task));
         $response->assertStatus(403);
-
     }
 
     public function testDeleteTask(): void
@@ -103,6 +102,5 @@ class TaskTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertRedirect(route('tasks.index'));
-
     }
 }
