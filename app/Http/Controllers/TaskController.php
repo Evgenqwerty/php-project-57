@@ -23,7 +23,7 @@ class TaskController extends Controller
             'assigned_by_id' => null
         ];
 
-        $filterTasks = QueryBuilder::for(Task::class);
+        $filterTasks = QueryBuilder::for(Task::class)->with(['status', 'creator', 'assignedTo']);
 
         if (!empty($data['filter'])) {
             $filter = $data['filter'];
@@ -36,7 +36,7 @@ class TaskController extends Controller
 
         $tasks = $filterTasks->paginate();
         $taskStatuses = new TaskStatus();
-        $users = new User();
+        $users = User::all();
         return view('tasks.index', compact('tasks', 'taskStatuses', 'users', 'filter'));
     }
 
@@ -107,11 +107,17 @@ class TaskController extends Controller
         $data = $request->validate([
             'name' => "required|unique:tasks,name,{$task->id}",
             'description' => "max:1000",
-            'status_id' => "required|string",
-            'assigned_by_id' => "nullable|string",
+            'status_id' => "required|integer",
+            'assigned_to_id' => "nullable|integer",
             'labels' => "nullable|array"
 
         ]);
+
+        if (isset($data['assigned_to_id'])) {
+            $data['assigned_by_id'] = $data['assigned_to_id'];
+            unset($data['assigned_to_id']);
+        }
+
         $task->fill($data);
         $task->save();
         if (array_key_exists('labels', $data)) {

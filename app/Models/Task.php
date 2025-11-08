@@ -10,7 +10,7 @@ class Task extends Model
         'name',
         'description',
         'status_id',
-        'creator_by_id', // ← ДОБАВЬТЕ ЭТО
+        'creator_by_id',
         'assigned_by_id',
     ];
 

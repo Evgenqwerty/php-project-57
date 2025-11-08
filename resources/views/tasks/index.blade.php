@@ -59,10 +59,10 @@
             @foreach ($tasks as $task)
                 <tr class="border-b border-dashed text-left">
                     <td>{{ $task->id }}</td>
-                    <td>{{ $taskStatuses::find($task->status_id)->name }}</td>
+                    <td>{{ $taskStatuses->where('id', $task->status_id)->first()->name }}</td>
                     <td><a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a></td>
-                    <td>{{ $users::find($task->creator_by_id)->name }}</td>
-                    <td>{{ $users::find($task->assigned_by_id)->name ?? '' }}</td>
+                    <td>{{ $users->where('id', $task->creator_by_id)->first()->name }}</td>
+                    <td>{{ $users->where('id', $task->assigned_by_id)->first()->name ?? '' }}</td>
                     <td>{{ $task->created_at->format('d.m.Y') }}</td>
                     @auth
                         <td>
