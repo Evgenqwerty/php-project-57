@@ -29,19 +29,20 @@ class TaskController extends Controller
 
         $filterTasks = QueryBuilder::for(Task::class)->with(['status', 'creator', 'assignedTo']);
 
-        if (!empty($data['filter'])) {
+        // Исправленные проверки
+        if (isset($data['filter']) && count($data['filter']) > 0) {
             // Статус
-            if (isset($data['filter']['status_id']) && !is_null($data['filter']['status_id'])) {
+            if (isset($data['filter']['status_id']) && $data['filter']['status_id'] !== null) {
                 $filterTasks->where('status_id', $data['filter']['status_id']);
             }
 
             // Создатель
-            if (isset($data['filter']['created_by_id']) && !is_null($data['filter']['created_by_id'])) {
+            if (isset($data['filter']['created_by_id']) && $data['filter']['created_by_id'] !== null) {
                 $filterTasks->where('creator_by_id', $data['filter']['created_by_id']);
             }
 
             // Исполнитель (маппинг на assigned_by_id)
-            if (isset($data['filter']['assigned_to_id']) && !is_null($data['filter']['assigned_to_id'])) {
+            if (isset($data['filter']['assigned_to_id']) && $data['filter']['assigned_to_id'] !== null) {
                 $filterTasks->where('assigned_by_id', $data['filter']['assigned_to_id']);
             }
         }
