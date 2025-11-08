@@ -37,7 +37,7 @@ class TaskController extends Controller
 
             // Создатель
             if (isset($data['filter']['created_by_id']) && !is_null($data['filter']['created_by_id'])) {
-                $filterTasks->where('created_by_id', $data['filter']['created_by_id']);
+                $filterTasks->where('creator_by_id', $data['filter']['created_by_id']);
             }
 
             // Исполнитель (маппинг на assigned_by_id)
