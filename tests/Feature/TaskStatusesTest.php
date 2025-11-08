@@ -22,13 +22,13 @@ class TaskStatusesTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_task_statuses_screen_can_be_rendered(): void
+    public function testTaskStatusesScreenCanBeRendered(): void
     {
         $response = $this->get(route('task_statuses.index'));
         $response->assertStatus(200);
     }
 
-    public function test_create_task_status(): void
+    public function testCreateTaskStatus(): void
     {
         $response = $this->get(route('task_statuses.create'));
         $response->assertStatus(403);
@@ -50,7 +50,7 @@ class TaskStatusesTest extends TestCase
 
     }
 
-    public function test_edit_task_status(): void
+    public function testEditTaskStatus(): void
     {
         $response = $this->get(route('task_statuses.edit', $this->status));
         $response->assertStatus(403);
@@ -72,7 +72,7 @@ class TaskStatusesTest extends TestCase
 
     }
 
-    public function test_delete_task_status(): void
+    public function testDeleteTaskStatus(): void
     {
 
         $response = $this->delete(route('task_statuses.destroy', $this->status));

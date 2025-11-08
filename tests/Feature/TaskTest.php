@@ -31,13 +31,13 @@ class TaskTest extends TestCase
         $this->task->save();
     }
 
-    public function test_task_screen_can_be_rendered(): void
+    public function testTaskScreenCanBeRendered(): void
     {
         $response = $this->get(route('tasks.index'));
         $response->assertStatus(200);
     }
 
-    public function test_create_task(): void
+    public function testCreateTask(): void
     {
         $response = $this->get(route('tasks.create'));
         $response->assertStatus(403);
@@ -61,7 +61,7 @@ class TaskTest extends TestCase
 
     }
 
-    public function test_edit_task(): void
+    public function testEditTask(): void
     {
         $this->post(route('login'), [
             'email' => $this->user->email,
@@ -88,7 +88,7 @@ class TaskTest extends TestCase
 
     }
 
-    public function test_delete_task(): void
+    public function testDeleteTask(): void
     {
         $response = $this->delete(route('tasks.destroy', $this->task));
         $response->assertStatus(403);

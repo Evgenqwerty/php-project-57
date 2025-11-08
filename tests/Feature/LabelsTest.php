@@ -22,13 +22,13 @@ class LabelsTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_labels_screen_can_be_rendered(): void
+    public function testLabelsScreenCanBeRendered(): void
     {
         $response = $this->get(route('labels.index'));
         $response->assertStatus(200);
     }
 
-    public function test_create_label(): void
+    public function testCreateLabel(): void
     {
         $response = $this->get(route('labels.create'));
         $response->assertStatus(403);
@@ -50,7 +50,7 @@ class LabelsTest extends TestCase
 
     }
 
-    public function test_edit_label(): void
+    public function testEditLabel(): void
     {
         $response = $this->get(route('labels.edit', $this->label));
         $response->assertStatus(403);
@@ -72,7 +72,7 @@ class LabelsTest extends TestCase
 
     }
 
-    public function test_delete_label(): void
+    public function testDeleteLabel(): void
     {
         $response = $this->delete(route('labels.destroy', $this->label));
         $response->assertStatus(403);

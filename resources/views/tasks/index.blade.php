@@ -50,7 +50,7 @@
                 <th>{{ __('layout.table_name') }}</th>
                 <th>{{ __('layout.table_creater') }}</th>
                 <th>{{ __('layout.table_assigned') }}</th>
-                <th><th>{{ __('layout.table_date_of_creation') }}</th></th>
+                <th>{{ __('layout.table_date_of_creation') }}</th>
                 @auth
                     <th>{{ __('layout.table_actions') }}</th>
                 @endauth
