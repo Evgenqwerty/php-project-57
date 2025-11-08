@@ -15,28 +15,41 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $data = $request->validate([
-            'filter' => "nullable|array"
+            'filter' => "nullable|array",
+            'filter.status_id' => 'nullable|exists:task_statuses,id',
+            'filter.created_by_id' => 'nullable|exists:users,id',
+            'filter.assigned_to_id' => 'nullable|exists:users,id'
         ]);
-        $filter = [
+
+        $filter = $data['filter'] ?? [
             'status_id' => null,
-            'creator_by_id' => null,
-            'assigned_by_id' => null
+            'created_by_id' => null,
+            'assigned_to_id' => null
         ];
 
         $filterTasks = QueryBuilder::for(Task::class)->with(['status', 'creator', 'assignedTo']);
 
         if (!empty($data['filter'])) {
-            $filter = $data['filter'];
-            foreach ($data['filter'] as $key => $value) {
-                if (!is_null($value)) {
-                    $filterTasks = $filterTasks->where($key, $value);
-                }
+            // Статус
+            if (isset($data['filter']['status_id']) && !is_null($data['filter']['status_id'])) {
+                $filterTasks->where('status_id', $data['filter']['status_id']);
+            }
+
+            // Создатель
+            if (isset($data['filter']['created_by_id']) && !is_null($data['filter']['created_by_id'])) {
+                $filterTasks->where('created_by_id', $data['filter']['created_by_id']);
+            }
+
+            // Исполнитель (маппинг на assigned_by_id)
+            if (isset($data['filter']['assigned_to_id']) && !is_null($data['filter']['assigned_to_id'])) {
+                $filterTasks->where('assigned_by_id', $data['filter']['assigned_to_id']);
             }
         }
 
         $tasks = $filterTasks->paginate();
-        $taskStatuses = new TaskStatus();
+        $taskStatuses = TaskStatus::all();
         $users = User::all();
+
         return view('tasks.index', compact('tasks', 'taskStatuses', 'users', 'filter'));
     }
 
