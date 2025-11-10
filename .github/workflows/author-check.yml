@@ -17,17 +17,17 @@ jobs:
       - name: Run tests
         run: make test
 
-        # https://docs.sonarsource.com/sonarqube-cloud/enriching/test-coverage/php-test-coverage/
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=evgenqwerty
-            -Dsonar.projectKey=Evgenqwerty_php-project-48
-            -Dsonar.sources=./src
-            -Dsonar.php.coverage.reportPaths=reports/coverage.xml
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.analysis.ci.automatic=false
-            -Dsonar.exclusions=**/lang/**
+#        # https://docs.sonarsource.com/sonarqube-cloud/enriching/test-coverage/php-test-coverage/
+#      - name: SonarQube Scan
+#        uses: SonarSource/sonarqube-scan-action@v5
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          args: >
+#            -Dsonar.organization=evgenqwerty
+#            -Dsonar.projectKey=Evgenqwerty_php-project-48
+#            -Dsonar.sources=./src
+#            -Dsonar.php.coverage.reportPaths=reports/coverage.xml
+#            -Dsonar.host.url=https://sonarcloud.io
+#            -Dsonar.analysis.ci.automatic=false
+#            -Dsonar.exclusions=**/lang/**
