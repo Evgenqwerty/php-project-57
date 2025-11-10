@@ -43,8 +43,7 @@ class TaskController extends Controller
             }
         }
 
-        $tasks = $filterTasks->paginate(15); // ← ИЗМЕНИТЕ ЭТУ СТРОКУ
-        $tasks->load('creator', 'status', 'assignedTo');
+        $tasks = $filterTasks->paginate(15);
 
         $taskStatuses = TaskStatus::all();
         $users = User::all();
