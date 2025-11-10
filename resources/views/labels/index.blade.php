@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="grid col-span-full">
         @include('flash::message')
         <h1 class="mb-5">{{ __('layout.labels') }}</h1>
@@ -45,9 +44,7 @@
                 </tr>
         @endforeach
     </div>
-    </section>
-    </div>
-    @endsection
+@endsection
 @section('pagination')
     {{ $labels->links() }}
 @endsection
