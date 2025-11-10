@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('label_task', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_id')->nullable();
-            $table->unsignedBigInteger('label_id');
-            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
-            $table->foreign('label_id')->references('id')->on('labels');
+
+            $table->foreignId('task_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('label_id')->constrained();
         });
     }
 
