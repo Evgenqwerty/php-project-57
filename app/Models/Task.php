@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -21,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property TaskStatus $status
  * @property \Illuminate\Database\Eloquent\Collection<Label> $labels
  */
+
 class Task extends Model
 {
     protected $fillable = [
@@ -31,23 +30,23 @@ class Task extends Model
         'assigned_by_id',
     ];
 
-    public function creator(): BelongsTo
+    public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_by_id');
+        return $this->belongsTo('App\Models\User', 'creator_by_id');
     }
 
-    public function status(): BelongsTo
+    public function status()
     {
         return $this->belongsTo(TaskStatus::class, 'status_id');
     }
 
-    public function assignedTo(): BelongsTo
+    public function assignedTo()
     {
         return $this->belongsTo(User::class, 'assigned_by_id');
     }
 
-    public function labels(): BelongsToMany
+    public function labels()
     {
-        return $this->belongsToMany(Label::class, 'task_label');
+        return $this->belongsToMany(Label::class);
     }
 }
