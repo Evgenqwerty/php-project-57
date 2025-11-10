@@ -10,7 +10,7 @@ return [
     'task_statuses' => 'Статусы',
     'labels' => 'Метки',
     'home_content' => 'Репозиторий проекта на GitHub',
-    'home_content_2' => 'Это простой менеджер задач на Laravel',
+    'home_content_review' => 'Это простой менеджер задач на Laravel',
     'labels_header' => 'Метки',
     'create_button' => 'Создать',
     'table_id' => 'ID',

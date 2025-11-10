@@ -45,7 +45,7 @@ class TaskController extends Controller
             }
         }
 
-        $tasks = $filterTasks->paginate();
+        $tasks = $filterTasks->with(['status', 'creator', 'assignedTo'])->paginate();
         $taskStatuses = TaskStatus::all();
         $users = User::all();
 
