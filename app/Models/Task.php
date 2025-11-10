@@ -4,6 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property \App\Models\User $creator
+ * @property \App\Models\User $assignedTo
+ * @property \App\Models\TaskStatus $status
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Label> $labels
+ */
+
 class Task extends Model
 {
     protected $fillable = [
