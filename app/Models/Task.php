@@ -14,10 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @property User $creator
- * @property User $assignedTo
- * @property TaskStatus $status
- * @property \Illuminate\Database\Eloquent\Collection<Label> $labels
+ * @property \App\Models\User $creator
+ * @property \App\Models\User $assignedTo
+ * @property \App\Models\TaskStatus $status
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Label> $labels
  */
 
 class Task extends Model
