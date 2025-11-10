@@ -5,19 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int $id
- * @property string $name
- * @property string $description
- * @property int $status_id
- * @property int $creator_by_id
- * @property int $assigned_by_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
  * @property \App\Models\User $creator
  * @property \App\Models\User $assignedTo
  * @property \App\Models\TaskStatus $status
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Label> $labels
  */
 
 class Task extends Model

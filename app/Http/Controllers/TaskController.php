@@ -27,11 +27,9 @@ class TaskController extends Controller
             'assigned_to_id' => null
         ];
 
-        $filterTasks = QueryBuilder::for(Task::class)->with(['status', 'creator', 'assignedTo']);
+        $filterTasks = QueryBuilder::for(Task::class);
 
-        // Исправленные проверки
         if (isset($data['filter']) && count($data['filter']) > 0) {
-            // Статус
             if (isset($data['filter']['status_id'])) {
                 $filterTasks->where('status_id', $data['filter']['status_id']);
             }
@@ -45,7 +43,9 @@ class TaskController extends Controller
             }
         }
 
-        $tasks = $filterTasks->with(['status', 'creator', 'assignedTo'])->paginate();
+        $tasks = $filterTasks->paginate(15); // ← ИЗМЕНИТЕ ЭТУ СТРОКУ
+        $tasks->load('creator', 'status', 'assignedTo');
+
         $taskStatuses = TaskStatus::all();
         $users = User::all();
 
