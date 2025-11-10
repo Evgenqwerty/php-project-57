@@ -30,3 +30,4 @@ jobs:
             -Dsonar.php.coverage.reportPaths=reports/coverage.xml
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.analysis.ci.automatic=false
+            -Dsonar.exclusions=**/lang/**
