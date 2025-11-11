@@ -17,7 +17,7 @@ class Task extends Model
         'description',
         'status_id',
         'creator_by_id',
-        'assigned_by_id',
+        'assigned_to_id',
     ];
 
     public function creator()
@@ -32,7 +32,7 @@ class Task extends Model
 
     public function assignedTo()
     {
-        return $this->belongsTo(User::class, 'assigned_by_id');
+        return $this->belongsTo(User::class, 'assigned_to_id');
     }
 
     public function labels()
