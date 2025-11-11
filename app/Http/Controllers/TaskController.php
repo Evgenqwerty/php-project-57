@@ -6,6 +6,7 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use App\Http\Requests\TaskRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,15 +69,9 @@ class TaskController extends Controller
         return view('tasks.create', compact('taskStatuses', 'users', 'labels'));
     }
 
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $data = $request->validate([
-            'name' => "required|unique:tasks",
-            'description' => "max:1000",
-            'status_id' => "required|integer",
-            'assigned_to_id' => "nullable|integer",
-            'labels' => "nullable|array"
-        ]);
+        $data = $request->validated();
 
         $task = new Task();
         $task->fill($data);
@@ -109,18 +104,11 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task', 'taskStatuses', 'users', 'labels'));
     }
 
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
         $this->authorize('update', $task);
 
-        $data = $request->validate([
-            'name' => "required|unique:tasks,name,{$task->id}",
-            'description' => "max:1000",
-            'status_id' => "required|integer",
-            'assigned_to_id' => "nullable|integer",
-            'labels' => "nullable|array"
-
-        ]);
+        $data = $request->validated();
 
         $task->fill($data);
         $task->save();
