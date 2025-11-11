@@ -35,7 +35,7 @@ class TaskController extends Controller
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
                 AllowedFilter::exact('status_id'),
-                AllowedFilter::callback('created_by_id', function($query, $value) {
+                AllowedFilter::callback('created_by_id', function ($query, $value) {
                     $query->where('creator_by_id', $value);
                 }),
                 AllowedFilter::exact('assigned_to_id'),
