@@ -31,23 +31,13 @@ class TaskController extends Controller
             'assigned_to_id' => null
         ];
 
-        $filterTasks = QueryBuilder::for(Task::class);
-
-        if (isset($data['filter']) && count($data['filter']) > 0) {
-            if (isset($data['filter']['status_id'])) {
-                $filterTasks->where('status_id', $data['filter']['status_id']);
-            }
-
-            if (isset($data['filter']['created_by_id'])) {
-                $filterTasks->where('creator_by_id', $data['filter']['created_by_id']);
-            }
-
-            if (isset($data['filter']['assigned_to_id'])) {
-                $filterTasks->where('assigned_to_id', $data['filter']['assigned_to_id']);
-            }
-        }
-
-        $tasks = $filterTasks->paginate(15);
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters([
+                'status_id',
+                'creator_by_id',
+                'assigned_to_id'
+            ])
+            ->paginate(15);
 
         $taskStatuses = TaskStatus::all();
         $users = User::all();
