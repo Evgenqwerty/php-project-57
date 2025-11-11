@@ -30,7 +30,7 @@ class TaskTest extends TestCase
         $this->task = new Task();
         $this->task->name = 'Тестовая задача';
         $this->task->status_id = $this->status->id;
-        $this->task->creator_by_id = $this->user->id;
+        $this->task->created_by_id = $this->user->id;
         $this->task->save();
     }
 
@@ -56,7 +56,7 @@ class TaskTest extends TestCase
         $response = $this->post(route('tasks.store'), [
             'name' => 'Новая тестовая задача',
             'status_id' => (string) $this->status->id,
-            'creator_by_id' => $this->user->id,
+            'created_by_id' => $this->user->id,
         ]);
         $response->assertStatus(302);
 
@@ -76,7 +76,7 @@ class TaskTest extends TestCase
         $response = $this->patch(route('tasks.update', $this->task), [
             'name' => 'Измененная задача',
             'status_id' => (string) $this->status->id,
-            'creator_by_id' => $this->user->id,
+            'created_by_id' => $this->user->id,
 
         ]);
         $response->assertStatus(302);
