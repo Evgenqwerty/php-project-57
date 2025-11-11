@@ -26,8 +26,8 @@ class TaskRequest extends FormRequest
         return [
             'name' => "required|unique:tasks,name,{$taskId}",
             'description' => 'nullable|max:1000',
-            'status_id' => 'required|integer|exists:task_statuses,id',
-            'assigned_to_id' => 'nullable|integer|exists:users,id',
+            'status_id' => 'required|integer',
+            'assigned_to_id' => 'nullable|integer',
             'labels' => 'nullable|array',
         ];
     }
