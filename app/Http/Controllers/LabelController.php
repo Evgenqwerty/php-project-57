@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Label;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LabelRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -67,7 +65,7 @@ class LabelController extends Controller
 
         if ($label->tasks()->exists()) {
             flash(__('controllers.label_statuses_destroy_failed'))->error();
-            return back();
+            back();
         }
         $label->delete();
 

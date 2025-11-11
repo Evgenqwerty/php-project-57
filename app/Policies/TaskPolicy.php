@@ -43,7 +43,7 @@ class TaskPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Task $task): bool
+    public function delete(?User $user, Task $task): bool
     {
         // Удалять может только создатель задачи И авторизованный
         return !is_null($user) && $user->id === $task->creator_by_id;
@@ -52,7 +52,7 @@ class TaskPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Task $task): bool
+    public function restore(?User $user, Task $task): bool
     {
         return false;
     }
@@ -60,7 +60,7 @@ class TaskPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Task $task): bool
+    public function forceDelete(?User $user, Task $task): bool
     {
         return false;
     }
