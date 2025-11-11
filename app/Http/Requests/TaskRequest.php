@@ -24,7 +24,7 @@ class TaskRequest extends FormRequest
         $taskId = $this->route('task') ? $this->route('task')->id : null;
 
         return [
-            'name' => "required|unique:tasks,name,{$taskId}",
+            'name' => "required|unique:tasks",
             'description' => 'nullable|max:1000',
             'status_id' => 'required|integer',
             'assigned_to_id' => 'nullable|integer',
