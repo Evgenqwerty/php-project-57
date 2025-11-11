@@ -33,9 +33,9 @@ class TaskController extends Controller
 
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
-                'status_id',
-                'creator_by_id',
-                'assigned_to_id'
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::exact('creator_by_id'),
+                AllowedFilter::exact('assigned_to_id'),
             ])
             ->paginate(15);
 
