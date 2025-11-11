@@ -21,13 +21,13 @@ class TaskController extends Controller
         $data = $request->validate([
             'filter' => "nullable|array",
             'filter.status_id' => 'nullable|exists:task_statuses,id',
-            'filter.created_by_id' => 'nullable|exists:users,id',
+            'filter.creator_by_id' => 'nullable|exists:users,id',
             'filter.assigned_to_id' => 'nullable|exists:users,id'
         ]);
 
         $filter = $data['filter'] ?? [
             'status_id' => null,
-            'created_by_id' => null,
+            'creator_by_id' => null,
             'assigned_to_id' => null
         ];
 
