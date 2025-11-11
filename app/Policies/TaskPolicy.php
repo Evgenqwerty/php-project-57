@@ -27,7 +27,7 @@ class TaskPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user): bool
     {
         return !is_null($user);
     }
@@ -35,7 +35,7 @@ class TaskPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Task $task): bool
+    public function update(?User $user, Task $task): bool
     {
         return !is_null($user);
     }
