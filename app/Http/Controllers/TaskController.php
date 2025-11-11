@@ -78,11 +78,6 @@ class TaskController extends Controller
             'labels' => "nullable|array"
         ]);
 
-        if (isset($data['assigned_to_id'])) {
-            $data['assigned_by_id'] = $data['assigned_to_id'];
-            unset($data['assigned_to_id']);
-        }
-
         $task = new Task();
         $task->fill($data);
         $task->creator_by_id = Auth::user()->id;
@@ -126,11 +121,6 @@ class TaskController extends Controller
             'labels' => "nullable|array"
 
         ]);
-
-        if (isset($data['assigned_to_id'])) {
-            $data['assigned_by_id'] = $data['assigned_to_id'];
-            unset($data['assigned_to_id']);
-        }
 
         $task->fill($data);
         $task->save();
