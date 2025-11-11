@@ -45,7 +45,7 @@ class TaskStatusPolicy
      */
     public function delete(User $user, TaskStatus $taskStatus): bool
     {
-        return !is_null($user);;
+        return !is_null($user);
     }
 
     /**

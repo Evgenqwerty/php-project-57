@@ -45,7 +45,8 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        return !is_null($user) && $user->id === $task->creator_by_id; // Удалять может только создатель задачи И авторизованный
+        // Удалять может только создатель задачи И авторизованный
+        return !is_null($user) && $user->id === $task->creator_by_id;
     }
 
     /**
