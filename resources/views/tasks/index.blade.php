@@ -18,7 +18,7 @@
                         <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[creator_by_id]">
                             <option value selected="selected">{{ __('layout.table_creater') }}</option>
                             @foreach ($users->all() as $user)
-                                <option value="{{ $user->id }}" {{ $user->id == $filter['creator_by_id'] ? 'selected' : '' }}>{{ $user->name }}</option>
+                                <option value="{{ $user->id }}" {{ $user->id == $filter['created_by_id'] ? 'selected' : '' }}>{{ $user->name }}</option>
                             @endforeach
                         </select>
 
