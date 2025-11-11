@@ -10,10 +10,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::resource('task_statuses', TaskStatusController::class);
+// ВСЕ маршруты защищаются Policy
 Route::resource('tasks', TaskController::class);
+Route::resource('task_statuses', TaskStatusController::class);
 Route::resource('labels', LabelController::class);
 
+// Остальные маршруты...
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

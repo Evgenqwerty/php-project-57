@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LabelRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class LabelController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $labels = Label::paginate();
@@ -18,14 +21,14 @@ class LabelController extends Controller
 
     public function create()
     {
-        if (Auth::guest()) {
-            return abort(403);
-        }
+        $this->authorize('create', Label::class);
         return view('labels.create');
     }
 
     public function store(LabelRequest $request)
     {
+        $this->authorize('create', Label::class);
+
         $data = $request->validated();
 
         $label = new Label();
@@ -38,14 +41,15 @@ class LabelController extends Controller
 
     public function edit(Label $label)
     {
-        if (Auth::guest()) {
-            return abort(403);
-        }
+        $this->authorize('update', $label);
+
         return view('labels.edit', compact('label'));
     }
 
     public function update(Request $request, Label $label)
     {
+        $this->authorize('update', $label);
+
         $data = $request->validate([
             'name' => "required|unique:labels,name,{$label->id}",
             'description' => "max:1000"
@@ -59,9 +63,8 @@ class LabelController extends Controller
 
     public function destroy(Label $label)
     {
-        if (Auth::guest()) {
-            return abort(403);
-        }
+        $this->authorize('delete', $label);
+
         if ($label->tasks()->exists()) {
             flash(__('controllers.label_statuses_destroy_failed'))->error();
             return back();

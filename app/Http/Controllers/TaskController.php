@@ -9,9 +9,11 @@ use App\Models\User;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskController extends Controller
 {
+    use AuthorizesRequests;
     public function index(Request $request)
     {
         $data = $request->validate([
@@ -56,9 +58,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        if (Auth::guest()) {
-            return abort(403);
-        }
+        $this->authorize('create', Task::class);
+
         $taskStatuses = new TaskStatus();
         $users = new User();
         $labels = new Label();
@@ -103,9 +104,8 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        if (Auth::guest()) {
-            return abort(403);
-        }
+        $this->authorize('update', $task);
+
         $taskStatuses = new TaskStatus();
         $users = new User();
         $labels = new Label();
@@ -115,6 +115,8 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
+        $this->authorize('update', $task);
+
         $data = $request->validate([
             'name' => "required|unique:tasks,name,{$task->id}",
             'description' => "max:1000",
@@ -142,9 +144,8 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        if (Auth::guest()) {
-            return abort(403);
-        }
+        $this->authorize('delete', $task);
+
         if (Auth::id() === $task->creator_by_id) {
             $task->labels()->detach();
             $task->delete();

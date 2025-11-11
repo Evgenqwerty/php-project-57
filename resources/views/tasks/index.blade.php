@@ -15,7 +15,6 @@
                             @endforeach
                         </select>
 
-
                         <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[creator_by_id]">
                             <option value selected="selected">{{ __('layout.table_creater') }}</option>
                             @foreach ($users->all() as $user)
@@ -33,13 +32,13 @@
                     </div>
                 </form>
             </div>
-        <div class="ml-auto">
-            @auth
-                <a href="{{ route('tasks.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    {{ __('layout.create_button_task') }}
-                </a>
-            @endauth
-        </div>
+            <div class="ml-auto">
+                @auth
+                    <a href="{{ route('tasks.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        {{ __('layout.create_button_task') }}
+                    </a>
+                @endauth
+            </div>
         </div>
 
         <table class="mt-4">
@@ -66,23 +65,25 @@
                     <td>{{ $task->created_at->format('d.m.Y') }}</td>
                     @auth
                         <td>
-                            @if (Auth::user()->id === $task->creator_by_id)
+                            {{-- Кнопка удаления только для создателя задачи --}}
+                            @can('delete', $task)
                                 <a data-confirm="{{ __('layout.table_delete_question') }}"
                                    data-method="delete"
                                    class="text-red-600 hover:text-red-900"
                                    href="{{ route('tasks.destroy', $task) }}"
                                    rel="nofollow">{{ __('layout.table_delete') }}</a>
-                                @csrf
-                                @method('DELETE')
-                            @endif
-                                <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task) }}">
-                                    {{ __('layout.table_edit') }}</a></a>
+                            @endcan
+
+                            {{-- Кнопка редактирования для всех авторизованных --}}
+                            <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task) }}">
+                                {{ __('layout.table_edit') }}
+                            </a>
                         </td>
                     @endauth
                 </tr>
-        @endforeach
-    </div>
+            @endforeach
         </table>
+    </div>
 @endsection
 @section('pagination')
     {{ $tasks->links() }}
