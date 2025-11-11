@@ -34,7 +34,6 @@ class TaskController extends Controller
 
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
-                'name',
                 AllowedFilter::exact('status_id'),
                 AllowedFilter::exact('creator_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
