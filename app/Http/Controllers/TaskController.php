@@ -22,22 +22,20 @@ class TaskController extends Controller
         $data = $request->validate([
             'filter' => "nullable|array",
             'filter.status_id' => 'nullable|exists:task_statuses,id',
-            'filter.creator_by_id' => 'nullable|exists:users,id',
+            'filter.created_by_id' => 'nullable|exists:users,id',
             'filter.assigned_to_id' => 'nullable|exists:users,id'
         ]);
 
         $filter = $data['filter'] ?? [
             'status_id' => null,
-            'creator_by_id' => null,
+            'created_by_id' => null,
             'assigned_to_id' => null
         ];
 
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
                 AllowedFilter::exact('status_id'),
-                AllowedFilter::callback('created_by_id', function ($query, $value) {
-                    $query->where('creator_by_id', $value);
-                }),
+                AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
             ])
             ->paginate(15);
@@ -68,7 +66,7 @@ class TaskController extends Controller
 
         $task = new Task();
         $task->fill($data);
-        $task->creator_by_id = Auth::user()->id;
+        $task->created_by_id = Auth::user()->id;
         $task->save();
 
         if (isset($data['labels'])) {
@@ -118,7 +116,7 @@ class TaskController extends Controller
     {
         $this->authorize('delete', $task);
 
-        if (Auth::id() === $task->creator_by_id) {
+        if (Auth::id() === $task->created_by_id) {
             $task->labels()->detach();
             $task->delete();
             flash(__('controllers.tasks_destroy'))->success();

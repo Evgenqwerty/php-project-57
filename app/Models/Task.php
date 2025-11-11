@@ -16,13 +16,13 @@ class Task extends Model
         'name',
         'description',
         'status_id',
-        'creator_by_id',
+        'created_by_id',
         'assigned_to_id',
     ];
 
     public function creator()
     {
-        return $this->belongsTo('App\Models\User', 'creator_by_id');
+        return $this->belongsTo('App\Models\User', 'created_by_id');
     }
 
     public function status()

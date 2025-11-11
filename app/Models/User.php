@@ -49,11 +49,11 @@ class User extends Authenticatable
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'creator_by_id');
+        return $this->hasMany(Task::class, 'created_by_id');
     }
 
     public function assignedTasks()
     {
-        return $this->hasMany(Task::class, 'assigned_by_id');
+        return $this->hasMany(Task::class, 'assigned_to_id');
     }
 }
