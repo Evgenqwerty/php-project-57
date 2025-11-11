@@ -8,6 +8,7 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use App\Http\Requests\TaskRequest;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
