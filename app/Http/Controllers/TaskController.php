@@ -42,7 +42,7 @@ class TaskController extends Controller
             }
 
             if (isset($data['filter']['assigned_to_id'])) {
-                $filterTasks->where('assigned_by_id', $data['filter']['assigned_to_id']);
+                $filterTasks->where('assigned_to_id', $data['filter']['assigned_to_id']);
             }
         }
 
