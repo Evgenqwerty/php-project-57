@@ -16,7 +16,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class TaskController extends Controller
 {
-    use AuthorizesRequests, HasMiddleware;
+    use AuthorizesRequests;
+    use HasMiddleware;
+
     public function __construct()
     {
         $this->authorizeResource(Task::class);
