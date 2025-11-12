@@ -63,11 +63,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $data = $request->validated();
-
-        $task = new Task();
-        $task->fill($data);
-        $task->created_by_id = Auth::user()->id;
-        $task->save();
+        $task = Auth::user()->createdTasks()->create($data);
 
         if (isset($data['labels'])) {
             $task->labels()->attach($data['labels']);
