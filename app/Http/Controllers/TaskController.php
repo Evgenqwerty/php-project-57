@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use App\Http\Requests\TaskRequest;
+use App\Http\Requests\TaskFilterRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Http\Request;
@@ -17,14 +18,9 @@ class TaskController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index(Request $request)
+    public function index(TaskFilterRequest $request)
     {
-        $data = $request->validate([
-            'filter' => "nullable|array",
-            'filter.status_id' => 'nullable|exists:task_statuses,id',
-            'filter.created_by_id' => 'nullable|exists:users,id',
-            'filter.assigned_to_id' => 'nullable|exists:users,id'
-        ]);
+        $data = $request->validated();
 
         $filter = $data['filter'] ?? [
             'status_id' => null,

@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class TaskPolicy
 {
@@ -27,9 +27,9 @@ class TaskPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(?User $user): bool
+    public function create(User $user): bool
     {
-        return !is_null($user);
+        return Auth::check();
     }
 
     /**
@@ -37,7 +37,7 @@ class TaskPolicy
      */
     public function update(?User $user, Task $task): bool
     {
-        return !is_null($user);
+        return Auth::check();
     }
 
     /**
@@ -46,7 +46,7 @@ class TaskPolicy
     public function delete(?User $user, Task $task): bool
     {
         // Удалять может только создатель задачи И авторизованный
-        return !is_null($user) && $user->id === $task->created_by_id;
+        return $task->creator->is($user);
     }
 
     /**
