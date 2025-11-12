@@ -29,7 +29,7 @@ class TaskStatusPolicy
      */
     public function create(User $user): bool
     {
-        return !is_null($user);
+        return Auth::check();
     }
 
     /**
