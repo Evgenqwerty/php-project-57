@@ -10,13 +10,17 @@ use App\Http\Requests\TaskRequest;
 use App\Http\Requests\TaskFilterRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class TaskController extends Controller
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, HasMiddleware;
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class);
+    }
 
     public function index(TaskFilterRequest $request)
     {
@@ -47,8 +51,6 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Task::class);
-
         $taskStatuses = new TaskStatus();
         $users = new User();
         $labels = new Label();
@@ -78,8 +80,6 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $this->authorize('update', $task);
-
         $taskStatuses = new TaskStatus();
         $users = new User();
         $labels = new Label();
@@ -89,8 +89,6 @@ class TaskController extends Controller
 
     public function update(TaskRequest $request, Task $task)
     {
-        $this->authorize('update', $task);
-
         $data = $request->validated();
 
         $task->fill($data);
@@ -106,8 +104,6 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        $this->authorize('delete', $task);
-
         if (Auth::id() === $task->created_by_id) {
             $task->labels()->detach();
             $task->delete();

@@ -35,7 +35,7 @@ class TaskPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?User $user, Task $task): bool
+    public function update(User $user, Task $task): bool
     {
         return Auth::check();
     }
@@ -43,7 +43,7 @@ class TaskPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?User $user, Task $task): bool
+    public function delete(User $user, Task $task): bool
     {
         // Удалять может только создатель задачи И авторизованный
         return $task->creator->is($user);
