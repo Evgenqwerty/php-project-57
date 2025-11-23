@@ -11,6 +11,9 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        if (env('APP_ENV') === 'production') {
+            \URL::forceScheme('https');
+        }
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(TaskStatus::class, TaskStatusPolicy::class);
         Gate::policy(Label::class, LabelPolicy::class);
